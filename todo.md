@@ -244,6 +244,11 @@
 - [x] Reescrever a proposta dentro de uma perspectiva científica de pós-humanidade, distinguindo-a de uma estética futurista genérica.
 - [x] Executar a otimização final segura da página concluída, preservando todo o conteúdo aprovado, e salvar uma nova versão publicada.
 - [x] Criar e verificar um novo backup compactado da versão otimizada no repositório privado GitHub após a publicação: commit bf041ea no branch main.
-- [ ] Publicar uma cópia estruturada do código-fonte no repositório privado GitHub, preservando os backups compactados já existentes.
+- [x] Publicar uma cópia estruturada do código-fonte no repositório privado GitHub, preservando os backups compactados já existentes: commit f21c7b6 no branch main.
 - [ ] Preparar a configuração de implantação do projeto estruturado no Cloudflare e verificar a autorização necessária.
 - [ ] Registrar e verificar o resultado da cópia estruturada e da implantação Cloudflare, sem substituir a publicação atual antes da confirmação.
+- [x] Tornar o repositório GitHub público por solicitação expressa da proprietária para permitir o acesso do Cloudflare: visibilidade PUBLIC verificada pela página pública e pela API do GitHub.
+- [ ] Autenticar a conta Cloudflare e conferir o acesso à conta que receberá a implantação.
+- [ ] Criar uma prévia Cloudflare vinculada ao repositório público kyaraverse/Kyara-nova-site, sem trocar o domínio nem remover a versão Manus.
+- [ ] Configurar o build de frontend e validar a URL de prévia Cloudflare antes de qualquer mudança de domínio.
+- [ ] Documentar separadamente as funções que ainda dependem do backend atual, incluindo Mural, autenticação, banco de dados e envio de e-mail.
