@@ -67,6 +67,8 @@ As rotas publicadas `/mural` e `/mente` também foram abertas no domínio person
 
 Nas páginas publicadas `/mente` e `/mural`, a lista de recursos carregados no navegador foi examinada para as assinaturas `/manus-storage`, `manus.space`, `/api/trpc` e `oauth`. Não houve correspondências nas duas rotas. A navegação e o formulário público permanecem operacionais no domínio Cloudflare. Essa evidência permite retirar o redirecionamento de contingência de mídia do código publicado, mas não encerra a migração: o backend histórico, a caixa de entrada administrativa, D1 e e-mail ainda precisam de substituição e validação.
 
+O commit GitHub `7ea915f`, que remove o arquivo `client/public/_redirects` e substitui o último áudio ambiente residual por `A.audio` no R2, foi publicado pelo Pages com sucesso no deploy `c263c74e`. A Home em `https://kyaranova.kyaraverse.com` foi aberta após essa publicação e sua auditoria de recursos não encontrou `/manus-storage`, `manus.space`, `/api/trpc` nem `oauth`. A versão Pages não possui mais fallback operacional de mídia para a Manus.
+
 ## Fontes técnicas
 
 [1] [Cloudflare Pages Functions](https://developers.cloudflare.com/pages/functions/)
