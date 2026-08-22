@@ -5,11 +5,11 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 }
 
 const image = {
-  cataratas: "/manus-storage/cataratas-iguacu_d3eb4d8c.webp",
-  mirianMural: "/manus-storage/mirian-mural_6f2eae90.webp",
-  mirianFlorianopolis: "/manus-storage/mirian-florianopolis_3294b2b4.webp",
-  ponte: "/manus-storage/ponte-hercilio-luz-autoral_e1379819.jpg",
-  miucha: "/manus-storage/miucha-studio_dbc2a966.webp",
+  cataratas: "https://mural.kyaraverse.com/media/cataratas-iguacu_d3eb4d8c.webp",
+  mirianMural: "https://mural.kyaraverse.com/media/mirian-mural_6f2eae90.webp",
+  mirianFlorianopolis: "https://mural.kyaraverse.com/media/mirian-florianopolis_3294b2b4.webp",
+  ponte: "https://mural.kyaraverse.com/media/ponte-hercilio-luz-autoral_e1379819.jpg",
+  miucha: "https://mural.kyaraverse.com/media/miucha-studio_dbc2a966.webp",
 };
 
 export default function MentePage() {

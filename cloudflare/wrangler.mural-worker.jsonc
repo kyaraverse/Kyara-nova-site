@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "kyara-mural",
+  "main": "cloudflare/mural-worker.mjs",
+  "compatibility_date": "2026-08-22",
+  "r2_buckets": [
+    {
+      "binding": "KYARA_MEDIA",
+      "bucket_name": "kyaraverse"
+    }
+  ]
+}

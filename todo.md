@@ -245,10 +245,21 @@
 - [x] Executar a otimização final segura da página concluída, preservando todo o conteúdo aprovado, e salvar uma nova versão publicada.
 - [x] Criar e verificar um novo backup compactado da versão otimizada no repositório privado GitHub após a publicação: commit bf041ea no branch main.
 - [x] Publicar uma cópia estruturada do código-fonte no repositório privado GitHub, preservando os backups compactados já existentes: commit f21c7b6 no branch main.
-- [ ] Preparar a configuração de implantação do projeto estruturado no Cloudflare e verificar a autorização necessária.
-- [ ] Registrar e verificar o resultado da cópia estruturada e da implantação Cloudflare, sem substituir a publicação atual antes da confirmação.
+- [x] Preparar a configuração de implantação do projeto estruturado no Cloudflare e verificar a autorização necessária.
+- [x] Registrar e verificar o resultado da cópia estruturada e da implantação Cloudflare, sem substituir a publicação atual antes da confirmação.
 - [x] Tornar o repositório GitHub público por solicitação expressa da proprietária para permitir o acesso do Cloudflare: visibilidade PUBLIC verificada pela página pública e pela API do GitHub.
-- [ ] Autenticar a conta Cloudflare e conferir o acesso à conta que receberá a implantação.
-- [ ] Criar uma prévia Cloudflare vinculada ao repositório público kyaraverse/Kyara-nova-site, sem trocar o domínio nem remover a versão Manus.
-- [ ] Configurar o build de frontend e validar a URL de prévia Cloudflare antes de qualquer mudança de domínio.
-- [ ] Documentar separadamente as funções que ainda dependem do backend atual, incluindo Mural, autenticação, banco de dados e envio de e-mail.
+- [x] Autenticar a conta Cloudflare e conferir o acesso à conta que receberá a implantação.
+- [x] Criar uma prévia Cloudflare vinculada ao repositório público kyaraverse/Kyara-nova-site, sem trocar o domínio nem remover a versão Manus.
+- [x] Configurar o build de frontend e validar a URL de prévia Cloudflare antes de qualquer mudança de domínio: `wrangler.jsonc` aponta `dist/public`; a URL respondeu HTTP 200 e a abertura foi verificada no navegador.
+- [x] Documentar separadamente as funções que ainda dependem do backend atual, incluindo Mural, autenticação, banco de dados e envio de e-mail.
+- [x] Preservar os ativos aprovados na prévia Cloudflare por redirecionamento de `/manus-storage/*` à origem Manus; verificados HTTP 307 e imagens carregadas na página Cloudflare.
+- [x] Criar o CNAME `kyaranova.kyaraverse.com` para `kyara-nova-site.pages.dev`, sem substituir registros existentes, e iniciar a validação do domínio personalizado no Cloudflare Pages.
+- [x] Confirmar a resposta do domínio personalizado em múltiplas bordas Cloudflare após a propagação inicial e corrigir qualquer persistência de erro 522 antes de indicar o endereço como ativo: HTTP 200 e Home carregada visualmente em `https://kyaranova.kyaraverse.com`.
+- [ ] Verificar as chamadas públicas do formulário do Mural no domínio Cloudflare e, se necessário, encaminhá-las com segurança ao backend Manus existente sem expor segredos ou rotas administrativas.
+- [ ] Planejar a migração do backend do Mural, autenticação, banco de dados e e-mail para serviços compatíveis com Cloudflare antes de substituir a publicação Manus.
+- [ ] Migrar o portal para operação autônoma no Cloudflare, incluindo mídia, Mural, banco, acesso administrativo e e-mail, sem dependência operacional da Manus.
+- [ ] Manter a publicação Manus apenas como contingência até a migração Cloudflare completa passar por testes funcionais e visuais.
+- [ ] Auditar e eliminar referências de runtime à Manus, incluindo `/manus-storage`, OAuth Manus, tRPC/Express hospedado pela Manus, banco atual e segredos associados.
+- [ ] Confirmar que o repositório GitHub contém código, configuração de infraestrutura e documentação suficientes para manutenção independente, sem depender de memória de sessão.
+- [x] Mapear as dependências atuais e registrar a arquitetura Cloudflare independente em `cloudflare_independence_plan.md`, incluindo Pages, Functions, R2, D1, Access, rate limiting e e-mail nativo.
+- [x] Copiar para o bucket R2 `kyaraverse` os 54 ativos referenciados pelo portal e ampliar o Worker `kyara-mural` para entregá-los em `/media/*`, preservando a infraestrutura de mensagens já existente.

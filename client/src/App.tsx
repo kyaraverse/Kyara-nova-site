@@ -30,64 +30,65 @@ import {
   VolumeX,
 } from "lucide-react";
 import { Toaster, toast } from "sonner";
-import { trpc } from "./lib/trpc";
-import { useAuth } from "./_core/hooks/useAuth";
 import "./index.css";
 
+const MEDIA = "https://mural.kyaraverse.com/media/";
+const MURAL_API = "https://mural.kyaraverse.com";
+
 const A = {
-  hero: "/manus-storage/hero-crystal_8a6cd8a8.webp",
-  profile: "/manus-storage/kyara-square-profile_4cb94ce1.webp",
-  portrait: "/manus-storage/portrait-close_02badba6.webp",
-  signal: "/manus-storage/signal_08970f2b.webp",
-  error: "/manus-storage/error_bda51440.webp",
-  crystal: "/manus-storage/cosmic-eye_71802530.webp",
-  city: "/manus-storage/campo-nova_4a16a16c.webp",
-  aether: "/manus-storage/space-cockpit_d1646448.webp",
-  ship: "/manus-storage/sunset-forest_33e72e93.webp",
-  star: "/manus-storage/star-mark_46efeba0.webp",
-  mic: "/manus-storage/eye-galaxy_504d69c3.webp",
-  close: "/manus-storage/eclipse-moon_8f03d605.webp",
-  full: "/manus-storage/portrait-full_7c9447d3.webp",
-  cataratas: "/manus-storage/cataratas-iguacu_d3eb4d8c.webp",
-  mirianMural: "/manus-storage/mirian-mural_6f2eae90.webp",
-  mirianFlorianopolis: "/manus-storage/mirian-florianopolis_3294b2b4.webp",
-  ponte: "/manus-storage/ponte-hercilio-luz_00df35bf.webp",
-  miucha: "/manus-storage/miucha-studio_dbc2a966.webp",
-  video1: "/manus-storage/transmission-01_2546258f.mp4",
-  video2: "/manus-storage/transmission-02_df22396a.mp4",
-  video3: "/manus-storage/transmission-03_57c9fe21.mp4",
-  discographyInterludeOne: "/manus-storage/discography-interlude-01_9c729fe1.mp4",
-  discographyInterludeTwo: "/manus-storage/discography-interlude-02_95971f70.mp4",
-  kyaraExtra1: "/manus-storage/1000141955_17d818fd.webp",
-  kyaraExtra2: "/manus-storage/1000141958_c3a3faf3.webp",
-  kyaraExtra3: "/manus-storage/1000144316_05b2cbd0.png",
-  kyaraExtra4: "/manus-storage/1000144317_57841671.png",
-  audio: "/manus-storage/GlitchedConsciousness_e92c253f.mp3",
-  audio2: "/manus-storage/Signal_Archive_02_d5a4660f.mp3",
-  eggAudioEn: "/manus-storage/dra-mg-console-en_26198975.wav",
-  eggImage: "/manus-storage/blue-screen-test-red_3c07b857.webp",
-  kyaraCrystalHero: "/manus-storage/kyara-crystal-hero_90f1c291.png",
-  eclipseRoad: "/manus-storage/eclipse-road_5739c9f5.png",
-  kyaraCockpit: "/manus-storage/kyara-cockpit_069b282c.webp",
-  kyaraCrescent: "/manus-storage/kyara-crescent_35cf926e.png",
-  kyaraMoonCity: "/manus-storage/kyara-moon-city_c24d86d1.webp",
-  kyaraNeonCorridor: "/manus-storage/kyara-neon-corridor_f58f26e3.png",
-  kyaraCodex: "/manus-storage/kyara-codex_7a0d491d.png",
-  eggVideoEn: "/manus-storage/kyara_refined_glitch_en_46c7e627.mp4",
-  eggVideoPt: "/manus-storage/kyara_refined_glitch_pt_78d27705.mp4",
-  eggVideoEs: "/manus-storage/kyara_refined_glitch_es_927e4247.mp4",
-  eggVideoKo: "/manus-storage/kyara_refined_glitch_ko_af59957a.mp4",
-  eggVideoFr: "/manus-storage/kyara_refined_glitch_fr_972a17bc.mp4",
-  eggVideoZh: "/manus-storage/kyara_refined_glitch_zh_412b45d6.mp4",
-  homeMoonStage: "/manus-storage/kyara-moon-stage_d0562a85.jpg",
-  homeCrystalHalo: "/manus-storage/kyara-crystal-halo_e8c5414e.png",
-  kyaraFireProfile: "/manus-storage/kyara-fire-profile_d72c8a60.webp",
-  kyaraFracturedReflection: "/manus-storage/kyara-fractured-reflection_f43d5c4f.webp",
-  glossaryCrystalStar: "/manus-storage/kyara-crystal-star_1fd457bf.png",
-  muralPuzzle: "/manus-storage/mural-puzzle-kyara_43dfa793.jpg",
-  shopCrystalSpace: "/manus-storage/kyara-crystal-space_e022af11.png",
-  shopEclipseRoad: "/manus-storage/kyara-eclipse-road_672c8a4e.png",
-  shopFireProfile: "/manus-storage/kyara-fire-profile_42f62ea5.webp",
+  hero: MEDIA + "hero-crystal_8a6cd8a8.webp",
+  profile: MEDIA + "kyara-square-profile_4cb94ce1.webp",
+  portrait: MEDIA + "portrait-close_02badba6.webp",
+  signal: MEDIA + "signal_08970f2.webp",
+  error: MEDIA + "error_bda51440.webp",
+  crystal: MEDIA + "cosmic-eye_71802530.webp",
+  city: MEDIA + "campo-nova_4a16a16c.webp",
+  aether: MEDIA + "space-cockpit_d1646448.webp",
+  ship: MEDIA + "sunset-forest_33e72e93.webp",
+  star: MEDIA + "star-mark_46efeba0.webp",
+  mic: MEDIA + "eye-galaxy_504d69c3.webp",
+  close: MEDIA + "eclipse-moon_8f03d605.webp",
+  full: MEDIA + "portrait-full_7c9447d3.webp",
+  cataratas: MEDIA + "cataratas-iguacu_d3eb4d8c.webp",
+  mirianMural: MEDIA + "mirian-mural_6f2eae90.webp",
+  mirianFlorianopolis: MEDIA + "mirian-florianopolis_3294b2b4.webp",
+  ponte: MEDIA + "ponte-hercilio-luz_00df35bf.webp",
+  miucha: MEDIA + "miucha-studio_dbc2a966.webp",
+  video1: MEDIA + "transmission-01_2546258f.mp4",
+  video2: MEDIA + "transmission-02_df22396a.mp4",
+  video3: MEDIA + "transmission-03_57c9fe21.mp4",
+  discographyInterludeOne: MEDIA + "discography-interlude-01_9c729fe1.mp4",
+  discographyInterludeTwo: MEDIA + "discography-interlude-02_95971f70.mp4",
+  kyaraExtra1: MEDIA + "1000141955_17d818fd.webp",
+  kyaraExtra2: MEDIA + "1000141958_c3a3faf3.webp",
+  kyaraExtra3: MEDIA + "1000144316_05b2cbd0.png",
+  kyaraExtra4: MEDIA + "1000144317_57841671.png",
+  audio: MEDIA + "GlitchedConsciousness_e92c253f.mp3",
+  audio2: MEDIA + "Signal_Archive_02_d5a4660f.mp3",
+  eggAudioEn: MEDIA + "dra-mg-console-en_26198975.wav",
+  eggImage: MEDIA + "blue-screen-test-red_3c07b857.webp",
+  kyaraCrystalHero: MEDIA + "kyara-crystal-hero_90f1c291.png",
+  eclipseRoad: MEDIA + "eclipse-road_5739c9f5.png",
+  kyaraCockpit: MEDIA + "kyara-cockpit_069b282c.webp",
+  kyaraCrescent: MEDIA + "kyara-crescent_35cf926e.png",
+  kyaraMoonCity: MEDIA + "kyara-moon-city_c24d86d1.webp",
+  kyaraNeonCorridor: MEDIA + "kyara-neon-corridor_f58f26e3.png",
+  kyaraCodex: MEDIA + "kyara-codex_7a0d491d.png",
+  eggVideoEn: MEDIA + "kyara_refined_glitch_en_46c7e627.mp4",
+  eggVideoPt: MEDIA + "kyara_refined_glitch_pt_78d27705.mp4",
+  eggVideoEs: MEDIA + "kyara_refined_glitch_es_927e4247.mp4",
+  eggVideoKo: MEDIA + "kyara_refined_glitch_ko_af59957a.mp4",
+  eggVideoFr: MEDIA + "kyara_refined_glitch_fr_972a17bc.mp4",
+  eggVideoZh: MEDIA + "kyara_refined_glitch_zh_412b45d6.mp4",
+  homeMoonStage: MEDIA + "kyara-moon-stage_d0562a85.jpg",
+  homeCrystalHalo: MEDIA + "kyara-crystal-halo_e8c5414e.png",
+  kyaraFireProfile: MEDIA + "kyara-fire-profile_d72c8a60.webp",
+  kyaraFracturedReflection: MEDIA + "kyara-fractured-reflection_f43d5c4f.webp",
+  glossaryCrystalStar: MEDIA + "kyara-crystal-star_1fd457bf.png",
+  muralPuzzle: MEDIA + "mural-puzzle-kyara_43dfa793.jpg",
+  shopCrystalSpace: MEDIA + "kyara-crystal-space_e022af11.png",
+  shopEclipseRoad: MEDIA + "kyara-eclipse-road_672c8a4e.png",
+  shopFireProfile: MEDIA + "kyara-fire-profile_42f62ea5.webp",
 };
 const menu = [
   ["/", "Início", "01"],
@@ -1060,15 +1061,26 @@ function Mural() {
     zh: ["粉丝 / The Nova", "媒体", "同步授权", "发行", "合作", "配乐", "演出", "视听项目", "品牌合作"]
   };
   const [sent, setSent] = useState(false);
+  const [pending, setPending] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", purpose: "fã", message: "" });
-  const submitMuralMessage = trpc.mural.submit.useMutation({
-    onSuccess: () => setSent(true),
-    onError: () => toast.error(mural.invalid),
-  });
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name || !form.email || !form.message) return toast.error(mural.invalid);
-    submitMuralMessage.mutate({ ...form, locale });
+    setPending(true);
+    try {
+      const response = await fetch(`${MURAL_API}/message`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, locale }),
+      });
+      const result = (await response.json().catch(() => null)) as { success?: boolean } | null;
+      if (!response.ok || !result?.success) throw new Error("Mural submission failed");
+      setSent(true);
+    } catch {
+      toast.error(mural.invalid);
+    } finally {
+      setPending(false);
+    }
   };
   return (
     <>
@@ -1096,7 +1108,7 @@ function Mural() {
               <label>{copy.email}<input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder={copy.email.toLowerCase()} /></label>
               <label>{copy.frequency}<select value={form.purpose} onChange={(e) => setForm({ ...form, purpose: e.target.value })}>{muralOptions[locale].map((option) => <option key={option}>{option}</option>)}</select></label>
               <label>{copy.message}<textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder={copy.sendTransmission} /></label>
-              <button className="cta" type="submit" disabled={submitMuralMessage.isPending}>{copy.sendTransmission} <Send size={16} /></button>
+              <button className="cta" type="submit" disabled={pending}>{copy.sendTransmission} <Send size={16} /></button>
             </form>
           </div>
         )}
@@ -1107,39 +1119,11 @@ function Mural() {
 }
 
 function MuralInbox() {
-  const { user, loading } = useAuth();
-  const isAdmin = user?.role === "admin";
-  const messagesQuery = trpc.mural.list.useQuery(undefined, { enabled: isAdmin });
-
-  if (loading) return <section className="mural-inbox section-shell" aria-busy="true" />;
-
-  if (!isAdmin) {
-    return <section className="mural-inbox section-shell">
-      <Eyebrow danger>PRIVATE CHANNEL</Eyebrow>
-      <h1>Access <em>restricted.</em></h1>
-      <p>This archive is reserved for the site owner.</p>
-    </section>;
-  }
-
-  const messages = messagesQuery.data ?? [];
   return <section className="mural-inbox section-shell">
     <Eyebrow>OWNER CHANNEL // PRIVATE ARCHIVE</Eyebrow>
     <h1>Mural <em>inbox.</em></h1>
-    <p className="mural-inbox-intro">Messages are recorded here before the email delivery channel is configured.</p>
-    {messagesQuery.isLoading ? <p>Loading transmissions...</p> : messages.length === 0 ? (
-      <div className="mural-inbox-empty"><LockKeyhole size={22} /><p>No transmissions have arrived yet.</p></div>
-    ) : (
-      <div className="mural-inbox-list">
-        {messages.map((message) => (
-          <article className="mural-inbox-message" key={message.id}>
-            <header><strong>{message.senderName}</strong><span>{new Date(message.createdAt).toLocaleString("pt-BR", { dateStyle: "medium", timeStyle: "short" })}</span></header>
-            <a href={`mailto:${message.senderEmail}`}>{message.senderEmail}</a>
-            <small>{message.purpose}</small>
-            <p>{message.message}</p>
-          </article>
-        ))}
-      </div>
-    )}
+    <p className="mural-inbox-intro">This archive is protected in the Cloudflare environment and is not exposed by the public portal.</p>
+    <div className="mural-inbox-empty"><LockKeyhole size={22} /><p>Owner authentication is required.</p></div>
   </section>;
 }
 
