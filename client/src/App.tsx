@@ -296,7 +296,7 @@ function Shell({ children }: { children: React.ReactNode }) {
           <span className="route-loader-status">{labels.channelSync}</span>
         </div>
       </div>
-      <audio ref={audioRef} src="/manus-storage/GlitchedConsciousness_e92c253f.mp3" loop preload="none" aria-label={labels.audioTrack} />
+      <audio ref={audioRef} src={A.audio} loop preload="none" aria-label={labels.audioTrack} />
       {!hasStarted && (
         <section className={`transmission-gate ${isRevealing ? "is-revealing" : ""}`} aria-label={labels.gate}>
           <div className="transmission-gate-scan" aria-hidden="true" />

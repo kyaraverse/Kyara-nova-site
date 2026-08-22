@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 describe("site navigation", () => {
@@ -239,6 +239,13 @@ describe("site navigation", () => {
     expect(source).toContain('if (!response.ok || !result?.success)');
     expect(source).toContain('setSent(true);');
     expect(source).not.toContain("trpc.mural.submit.useMutation");
+  });
+
+  it("ships no Manus media redirect or frontend asset reference", () => {
+    expect(existsSync(resolve(process.cwd(), "client/public/_redirects"))).toBe(false);
+    expect(source).not.toContain("/manus-storage/");
+    const mente = readFileSync(resolve(process.cwd(), "client/src/pages/MentePage.tsx"), "utf8");
+    expect(mente).not.toContain("/manus-storage/");
   });
 
   it("limits repeated public Mural submissions before storing a new transmission", () => {

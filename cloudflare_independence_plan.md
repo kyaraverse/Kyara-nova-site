@@ -59,6 +59,14 @@ Em 22 de agosto de 2026, o endpoint `GET https://mural.kyaraverse.com/health` re
 
 O frontend local usa `https://mural.kyaraverse.com/media/` para os ativos e envia o formulário diretamente a `POST /message` via `fetch`, sem `trpc.mural.submit` no código do navegador. A rota `/mural/inbox` permanece apenas como casca informativa: a proteção privada com Cloudflare Access e a substituição da listagem pública atual ainda são pendências. Não há conclusão de autonomia total nesta etapa.
 
+## Publicação Pages verificada
+
+O Cloudflare Pages publicou com sucesso o commit GitHub `40d4591` em produção, acionado pelo branch `main`. A implantação está associada ao domínio `https://kyaranova.kyaraverse.com` e não utiliza Pages Functions. A página inicial do domínio personalizado foi aberta no navegador após esse deploy e as mídias visíveis carregaram de `https://mural.kyaraverse.com/media/*`, incluindo a estrela, imagens de KYARA e arquivos de arquivo. Essa verificação confirma a substituição no caminho inicial publicado; a auditoria completa de todas as rotas e solicitações ainda é necessária antes de remover a contingência Manus.
+
+As rotas publicadas `/mural` e `/mente` também foram abertas no domínio personalizado. O formulário, o quebra-cabeça e os contatos do Mural renderizaram na versão Pages; a página Mente exibiu as fotografias e o conteúdo aprovados com URLs do Worker de mídia R2. A checagem visual foi feita em navegador; a próxima verificação deve registrar as solicitações de runtime e remover o redirecionamento de contingência somente depois de confirmada a ausência de chamadas a `/manus-storage/*`.
+
+Nas páginas publicadas `/mente` e `/mural`, a lista de recursos carregados no navegador foi examinada para as assinaturas `/manus-storage`, `manus.space`, `/api/trpc` e `oauth`. Não houve correspondências nas duas rotas. A navegação e o formulário público permanecem operacionais no domínio Cloudflare. Essa evidência permite retirar o redirecionamento de contingência de mídia do código publicado, mas não encerra a migração: o backend histórico, a caixa de entrada administrativa, D1 e e-mail ainda precisam de substituição e validação.
+
 ## Fontes técnicas
 
 [1] [Cloudflare Pages Functions](https://developers.cloudflare.com/pages/functions/)
