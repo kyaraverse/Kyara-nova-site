@@ -263,3 +263,4 @@
 - [ ] Confirmar que o repositório GitHub contém código, configuração de infraestrutura e documentação suficientes para manutenção independente, sem depender de memória de sessão.
 - [x] Mapear as dependências atuais e registrar a arquitetura Cloudflare independente em `cloudflare_independence_plan.md`, incluindo Pages, Functions, R2, D1, Access, rate limiting e e-mail nativo.
 - [x] Copiar para o bucket R2 `kyaraverse` os 54 ativos referenciados pelo portal e ampliar o Worker `kyara-mural` para entregá-los em `/media/*`, preservando a infraestrutura de mensagens já existente.
+- [x] Atualizar a suíte de regressão do Mural para o contrato público do Worker Cloudflare e validar envio, erros e mídia R2 sem chamadas tRPC no navegador: 22 testes, tipos e build passaram; `GET /health` e `POST /message` responderam 200 no navegador e as rotas Home, Mural e Mente foram verificadas em desktop e 375×812.

@@ -53,6 +53,12 @@ Também foi identificado um Worker existente, `kyara-mural`, associado à rota `
 
 Em seguida, o Worker `kyara-mural` foi ampliado preservando o namespace KV de mensagens existente e recebeu um binding ao bucket R2 `kyaraverse`. A migração única autenticada foi testada e transferiu com êxito os **54 ativos** efetivamente referenciados por `App.tsx` e `MentePage.tsx`, incluindo imagens, vídeos, áudios e a fotografia autoral. Os objetos foram gravados com cache público de um ano. A próxima alteração substitui no frontend as referências `/manus-storage/*` pelas URLs independentes do Worker em `https://mural.kyaraverse.com/media/*`.
 
+## Validação do Worker após a migração
+
+Em 22 de agosto de 2026, o endpoint `GET https://mural.kyaraverse.com/health` respondeu com `200` e status `ok` no navegador. Uma transmissão técnica identificada, sem conteúdo editorial ou dado pessoal real, foi aceita por `POST /message` com resposta `200` e `{ "success": true, "delivered": false }`. Esse resultado confirma o recebimento público pelo Worker e deixa explícito que a entrega de e-mail ainda não está configurada. Uma chamada direta por terminal recebeu um desafio de segurança da Cloudflare, enquanto a mesma operação no navegador autenticado no desafio foi aceita; isso deve ser considerado ao montar a validação automatizada externa.
+
+O frontend local usa `https://mural.kyaraverse.com/media/` para os ativos e envia o formulário diretamente a `POST /message` via `fetch`, sem `trpc.mural.submit` no código do navegador. A rota `/mural/inbox` permanece apenas como casca informativa: a proteção privada com Cloudflare Access e a substituição da listagem pública atual ainda são pendências. Não há conclusão de autonomia total nesta etapa.
+
 ## Fontes técnicas
 
 [1] [Cloudflare Pages Functions](https://developers.cloudflare.com/pages/functions/)

@@ -230,18 +230,15 @@ describe("site navigation", () => {
     expect(styles).toContain("touch-action:manipulation");
   });
 
-  it("stores Mural transmissions securely before attempting e-mail delivery", () => {
-    const schema = readFileSync(resolve(process.cwd(), "drizzle/schema.ts"), "utf8");
-    const db = readFileSync(resolve(process.cwd(), "server/db.ts"), "utf8");
-    const routerSource = readFileSync(resolve(process.cwd(), "server/routers.ts"), "utf8");
-    const mailer = readFileSync(resolve(process.cwd(), "server/muralEmail.ts"), "utf8");
-    expect(schema).toContain('mysqlTable("mural_messages"');
-    expect(db).toContain("createMuralMessage");
-    expect(routerSource).toContain("adminProcedure");
-    expect(routerSource).toContain("muralMessageInput");
-    expect(mailer).toContain('to: ["K.Nova@kyaraverse.com"]');
-    expect(mailer).toContain("reply_to: input.email");
-    expect(source).toContain("trpc.mural.submit.useMutation");
+  it("submits public Mural transmissions to the Cloudflare Worker without a Manus RPC client", () => {
+    expect(source).toContain('const MURAL_API = "https://mural.kyaraverse.com"');
+    expect(source).toContain('fetch(`${MURAL_API}/message`');
+    expect(source).toContain('method: "POST"');
+    expect(source).toContain('headers: { "Content-Type": "application/json" }');
+    expect(source).toContain('body: JSON.stringify({ ...form, locale })');
+    expect(source).toContain('if (!response.ok || !result?.success)');
+    expect(source).toContain('setSent(true);');
+    expect(source).not.toContain("trpc.mural.submit.useMutation");
   });
 
   it("limits repeated public Mural submissions before storing a new transmission", () => {
@@ -251,11 +248,12 @@ describe("site navigation", () => {
     expect(routerSource).toContain("TOO_MANY_REQUESTS");
   });
 
-  it("keeps the Mural inbox behind an owner-only route", () => {
+  it("keeps the Mural inbox as a Cloudflare-protected archive shell", () => {
     expect(source).toContain('path="/mural/inbox"');
     expect(source).toContain("function MuralInbox");
-    expect(source).toContain('user?.role === "admin"');
-    expect(source).toContain("trpc.mural.list.useQuery");
+    expect(source).toContain("protected in the Cloudflare environment");
+    expect(source).toContain("Owner authentication is required.");
+    expect(source).not.toContain("trpc.mural.list.useQuery");
   });
 
   it("keeps the translated interface catalog complete", () => {
