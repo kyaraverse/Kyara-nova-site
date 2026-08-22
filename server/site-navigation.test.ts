@@ -248,6 +248,19 @@ describe("site navigation", () => {
     expect(mente).not.toContain("/manus-storage/");
   });
 
+  it("mounts the public frontend without a Manus OAuth or tRPC provider", () => {
+    const entry = readFileSync(resolve(process.cwd(), "client/src/main.tsx"), "utf8");
+    expect(entry).toContain("createRoot(document.getElementById(\"root\")!).render(<App />)");
+    for (const dependency of ["/api/trpc", "manus-cookie", "startLogin", "trpc.Provider", "httpBatchLink"]) {
+      expect(entry).not.toContain(dependency);
+    }
+    const html = readFileSync(resolve(process.cwd(), "client/index.html"), "utf8");
+    expect(html).not.toContain("VITE_ANALYTICS_ENDPOINT");
+    expect(html).not.toContain("VITE_ANALYTICS_WEBSITE_ID");
+    const viteConfig = readFileSync(resolve(process.cwd(), "vite.config.ts"), "utf8");
+    expect(viteConfig).not.toContain("vitePluginManusRuntime");
+  });
+
   it("limits repeated public Mural submissions before storing a new transmission", () => {
     const routerSource = readFileSync(resolve(process.cwd(), "server/routers.ts"), "utf8");
     expect(routerSource).toContain("MURAL_MAX_SUBMISSIONS");
