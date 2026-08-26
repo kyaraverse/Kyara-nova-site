@@ -56,7 +56,7 @@
 
 # Auditoria integral em andamento
 
-- [x] Padronizar todos os contatos exibidos e fluxos de mensagem para knova@kyraverse.com e MG@kyraverse.com.
+- [x] Padronizar todos os contatos exibidos e fluxos de mensagem para Mirian.garciafoz@gmail.com.
 - [x] Confirmar o funcionamento das 12 faixas, links individuais e prévias sob demanda do Spotify.
 - [x] Traduzir os blocos editoriais ainda hardcoded fora da página Mente, preservada por solicitação anterior.
 - [x] Reduzir o custo de abertura com extração sob demanda da página Mente, carregamento tardio de mídia e nova medição após build.

@@ -57,14 +57,26 @@ function json(body, status = 200, headers = {}) {
   });
 }
 
-async function serveMedia(key, env) {
-  const object = await env.KYARA_MEDIA.get(key);
+async function serveMedia(key, env, request) {
+  const hasRange = Boolean(request.headers.get("Range"));
+  const object = await env.KYARA_MEDIA.get(key, hasRange ? { range: request.headers } : undefined);
   if (!object) return new Response("Not found", { status: 404 });
 
   const headers = new Headers();
   object.writeHttpMetadata(headers);
   headers.set("ETag", object.httpEtag);
-  return new Response(object.body, { headers });
+  headers.set("Accept-Ranges", "bytes");
+
+  if (object.range) {
+    const start = object.range.offset;
+    const end = start + object.range.length - 1;
+    headers.set("Content-Range", `bytes ${start}-${end}/${object.size}`);
+    headers.set("Content-Length", String(object.range.length));
+    return new Response(request.method === "HEAD" ? null : object.body, { status: 206, headers });
+  }
+
+  headers.set("Content-Length", String(object.size));
+  return new Response(request.method === "HEAD" ? null : object.body, { headers });
 }
 
 async function migrateMedia(request, env) {
@@ -153,9 +165,9 @@ export default {
 
     if (request.method === "OPTIONS") return new Response(null, { headers });
     if (request.method === "GET" && url.pathname === "/health") return json({ status: "ok", timestamp: Date.now() }, 200, headers);
-    if (request.method === "GET" && url.pathname.startsWith("/media/")) {
+    if ((request.method === "GET" || request.method === "HEAD") && url.pathname.startsWith("/media/")) {
       const key = decodeURIComponent(url.pathname.slice("/media/".length));
-      return isSafeMediaKey(key) ? serveMedia(key, env) : new Response("Not found", { status: 404 });
+      return isSafeMediaKey(key) ? serveMedia(key, env, request) : new Response("Not found", { status: 404 });
     }
     if (request.method === "POST" && url.pathname === "/migrate") return migrateMedia(request, env);
     if (request.method === "GET" && url.pathname === "/messages") {

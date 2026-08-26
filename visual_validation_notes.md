@@ -50,7 +50,7 @@ O modal do easter egg foi aberto através do clique na estrela. A imagem exibida
 
 ## Auditoria de contatos e Discografia — atualização
 
-No Mural, a sessão de navegador confirmou que apenas `knova@kyraverse.com` e `MG@kyraverse.com` aparecem como contatos públicos e usam links `mailto:`. O rodapé exibiu somente os destinos Spotify oficial e Instagram.
+No Mural, a sessão de navegador confirmou que `Mirian.garciafoz@gmail.com` aparece como contato público nos links `mailto:`. O rodapé exibiu o mesmo contato e somente os destinos Spotify oficial e Instagram.
 
 Na Discografia, a seleção de Português atualizou os títulos, detalhes das doze faixas, controles de prévia e links de streaming. O player incorporado do Spotify foi confirmado como recurso sob demanda: nenhum iframe é carregado antes da interação, e a prévia da faixa selecionada surge depois do acionamento.
 
