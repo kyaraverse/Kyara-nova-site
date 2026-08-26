@@ -26,7 +26,7 @@ GitHub (main)
         ├── R2: imagens, vídeos e áudios aprovados
         ├── KV/Rate Limiting: proteção contra abuso do formulário
         ├── Cloudflare Access: acesso administrativo à caixa de entrada do Mural
-        └── Cloudflare Email Service: entrega ao endereço K.Nova@kyaraverse.com
+        └── Cloudflare Email Service: entrega ao endereço Mirian.garciafoz@gmail.com
 ```
 
 ## Decisões técnicas registradas

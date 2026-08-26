@@ -196,10 +196,10 @@
 - [x] Validar o quebra-cabeça em desktop e mobile antes de qualquer publicação.
 - [x] Atualizar o rodapé com ícones vinculados de Spotify e Instagram.
 - [x] Exibir copyright de Kyaraverse e MG Mi em 2026, com todos os direitos reservados.
-- [x] Substituir os contatos no rodapé por k.nova@kyaraver.com e MGMi@kyaraverse.com.
+- [x] Substituir os contatos no rodapé por Mirian.garciafoz@gmail.com.
 - [x] Validar o rodapé atualizado em desktop e mobile antes de publicar.
 - [ ] Integrar o formulário do Mural a um serviço de e-mail transacional no servidor.
-- [ ] Encaminhar cada mensagem válida somente para K.Nova@kyaraverse.com, permitindo resposta direta.
+- [ ] Encaminhar cada mensagem válida somente para Mirian.garciafoz@gmail.com, permitindo resposta direta.
 - [ ] Proteger a credencial de envio e validar os dados recebidos antes do encaminhamento.
 - [ ] Exibir confirmação e erro localizados sem expor detalhes internos do serviço.
 - [ ] Validar o fluxo de envio real e publicar somente após a credencial ser configurada.
@@ -216,7 +216,7 @@
 - [x] Aplicar otimizações seguras de carregamento, mídia e layout sem alterar imagens ou textos aprovados sem necessidade.
 - [x] Validar todas as rotas, os seis idiomas, desempenho e acessibilidade antes da publicação.
 - [x] Preservar literalmente todos os textos aprovados, substituindo somente travessões dispensáveis por vírgulas ou outra pontuação necessária.
-- [ ] Conectar posteriormente o domínio configurado no Cloudflare ao serviço de envio para encaminhar as mensagens do Mural a K.Nova@kyaraverse.com.
+- [ ] Conectar posteriormente o domínio configurado no Cloudflare ao serviço de envio para encaminhar as mensagens do Mural a Mirian.garciafoz@gmail.com.
 - [ ] Definir a estrutura de importação das mensagens do Mural no HubSpot, sem exportar dados pessoais antes da configuração aprovada.
 - [ ] Preparar a sincronização segura de mensagens novas do Mural com o HubSpot.
 - [x] Criar ou confirmar o repositório privado de destino para o código no GitHub.

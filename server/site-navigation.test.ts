@@ -118,13 +118,13 @@ describe("site navigation", () => {
     expect(styles).toContain(".egg-anchor { position:relative; width:82px;");
   });
 
-  it("uses the requested public contact addresses and social channels", () => {
-    expect(source).toContain('mailto:k.nova@kyaraver.com');
-    expect(source).toContain('mailto:MGMi@kyaraverse.com');
+  it("uses the current public contact address and social channels", () => {
+    expect(source.match(/mailto:Mirian\.garciafoz@gmail\.com/g)?.length).toBe(4);
     expect(source).toContain('© 2026 KYARAVERSE. © 2026 MG MI. TODOS OS DIREITOS RESERVADOS.');
     expect(source).not.toContain('mailto:knova@kyraverse.com');
     expect(source).not.toContain('mailto:MG@kyraverse.com');
-    expect(source).not.toContain('mailto:Mirian.garciafoz@gmail.com');
+    expect(source).not.toContain('mailto:k.nova@kyaraver.com');
+    expect(source).not.toContain('mailto:MGMi@kyaraverse.com');
     expect(source).not.toContain('https://www.youtube.com');
     expect(source).not.toContain('https://www.facebook.com');
   });

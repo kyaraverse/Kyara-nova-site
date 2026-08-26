@@ -385,7 +385,7 @@ function Footer({ locale }: { locale: Locale }) {
   }[locale];
   return <footer className="site-footer">
     <div className="footer-manifesto"><span className="eyebrow">// {copy.manifesto}</span><p>{copy.transmits}<br /><em>{copy.listen}</em></p></div>
-    <div className="footer-meta"><div className="footer-identity"><span>KYARA NOVA</span><small>© 2026 KYARAVERSE. © 2026 MG MI. TODOS OS DIREITOS RESERVADOS.</small><div className="footer-contacts"><a href="mailto:k.nova@kyaraver.com">k.nova@kyaraver.com</a><a href="mailto:MGMi@kyaraverse.com">MGMi@kyaraverse.com</a></div></div><div className="socials"><a href="https://open.spotify.com/artist/1ZEO4vaVjI3UXFvpljQUNe" target="_blank" rel="noreferrer" aria-label={copy.spotify} title={copy.spotify}><Radio size={16} /></a><a href="https://www.instagram.com/just.k.nova" target="_blank" rel="noreferrer" aria-label={labels.instagram} title={labels.instagram}><Instagram size={16} /></a></div></div>
+    <div className="footer-meta"><div className="footer-identity"><span>KYARA NOVA</span><small>© 2026 KYARAVERSE. © 2026 MG MI. TODOS OS DIREITOS RESERVADOS.</small><div className="footer-contacts"><a href="mailto:Mirian.garciafoz@gmail.com">Mirian.garciafoz@gmail.com</a><a href="mailto:Mirian.garciafoz@gmail.com">Mirian.garciafoz@gmail.com</a></div></div><div className="socials"><a href="https://open.spotify.com/artist/1ZEO4vaVjI3UXFvpljQUNe" target="_blank" rel="noreferrer" aria-label={copy.spotify} title={copy.spotify}><Radio size={16} /></a><a href="https://www.instagram.com/just.k.nova" target="_blank" rel="noreferrer" aria-label={labels.instagram} title={labels.instagram}><Instagram size={16} /></a></div></div>
   </footer>;
 }
 
@@ -1101,7 +1101,7 @@ function Mural() {
               <h2>{copy.muralHeadingA}<br /><em>{copy.muralHeadingB}</em></h2>
               <p>{copy.muralBody}</p>
               <div className="mural-aside"><Radio size={18} /><span style={{ whiteSpace: "pre-line" }}>{mural.every}</span></div>
-              <div className="mural-aside" style={{ marginTop: "16px", alignItems: "start" }}><Send size={18} /><span><small>{mural.signals}</small><br /><a href="mailto:k.nova@kyaraver.com">k.nova@kyaraver.com</a><br /><small>{mural.professional}</small><br /><a href="mailto:MGMi@kyaraverse.com">MGMi@kyaraverse.com</a></span></div>
+              <div className="mural-aside" style={{ marginTop: "16px", alignItems: "start" }}><Send size={18} /><span><small>{mural.signals}</small><br /><a href="mailto:Mirian.garciafoz@gmail.com">Mirian.garciafoz@gmail.com</a><br /><small>{mural.professional}</small><br /><a href="mailto:Mirian.garciafoz@gmail.com">Mirian.garciafoz@gmail.com</a></span></div>
             </div>
             <form className="mural-form" onSubmit={submit}>
               <label>{copy.yourName}<input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder={copy.yourName.toLowerCase()} /></label>

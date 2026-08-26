@@ -26,7 +26,7 @@ export async function sendMuralEmail(input: MuralEmailInput) {
       },
       body: JSON.stringify({
         from: ENV.resendFromEmail,
-        to: ["K.Nova@kyaraverse.com"],
+        to: ["Mirian.garciafoz@gmail.com"],
         reply_to: input.email,
         subject,
         text,
