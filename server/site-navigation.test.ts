@@ -235,8 +235,13 @@ describe("site navigation", () => {
     expect(source).toContain('fetch(`${MURAL_API}/message`');
     expect(source).toContain('method: "POST"');
     expect(source).toContain('headers: { "Content-Type": "application/json" }');
-    expect(source).toContain('body: JSON.stringify({ ...form, locale })');
+    expect(source).toContain('body: JSON.stringify({ ...form, name, email, message, locale })');
     expect(source).toContain('if (!response.ok || !result?.success)');
+    expect(source).toContain('if (name.length < 2) return toast.error(mural.invalidName);');
+    expect(source).toContain('if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) return toast.error(mural.invalidEmail);');
+    expect(source).toContain('if (message.length < 5) return toast.error(mural.invalidMessage);');
+    expect(source).toContain('required minLength={2}');
+    expect(source).toContain('required minLength={5}');
     expect(source).toContain('setSent(true);');
     expect(source).not.toContain("trpc.mural.submit.useMutation");
   });

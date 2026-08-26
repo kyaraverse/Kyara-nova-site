@@ -1043,13 +1043,13 @@ function Shopping() {
 function Mural() {
   const locale = useContext(LocaleContext);
   const copy = pageText[locale];
-  const muralText: Record<Locale, { every: string; arrivedA: string; arrivedB: string; thanks: string; another: string; invalid: string; signals: string; professional: string }> = {
-    en: { every: "EVERY MESSAGE IS\nRECEIVED AS A SIGNAL.", arrivedA: "The signal arrived", arrivedB: "on the other side.", thanks: "Thank you for crossing the static. Replies are sent in terrestrial time.", another: "send another", invalid: "Complete the required fields to transmit.", signals: "SIGNAL CHANNEL", professional: "PROFESSIONAL CONTACT" },
-    pt: { every: "TODA MENSAGEM É\nRECEBIDA COMO UM SINAL.", arrivedA: "O sinal chegou", arrivedB: "do outro lado.", thanks: "Obrigada por atravessar a estática. As respostas são enviadas em horário terrestre.", another: "enviar outra", invalid: "Preencha os campos necessários para transmitir.", signals: "CANAL DE SINAL", professional: "CONTATO PROFISSIONAL" },
-    es: { every: "CADA MENSAJE ES\nRECIBIDO COMO UNA SEÑAL.", arrivedA: "La señal llegó", arrivedB: "al otro lado.", thanks: "Gracias por cruzar la estática. Las respuestas se envían en horario terrestre.", another: "enviar otra", invalid: "Completa los campos requeridos para transmitir.", signals: "CANAL DE SEÑAL", professional: "CONTACTO PROFESIONAL" },
-    ko: { every: "모든 메시지는\n신호로 수신됩니다.", arrivedA: "신호가 도착했습니다", arrivedB: "반대편에.", thanks: "정적을 건너와 주셔서 감사합니다. 답장은 지구 시간으로 전송됩니다.", another: "다른 메시지 보내기", invalid: "전송에 필요한 항목을 작성하세요.", signals: "신호 채널", professional: "전문 연락처" },
-    fr: { every: "CHAQUE MESSAGE EST\nREÇU COMME UN SIGNAL.", arrivedA: "Le signal est arrivé", arrivedB: "de l'autre côté.", thanks: "Merci d'avoir traversé la statique. Les réponses sont envoyées selon l'heure terrestre.", another: "envoyer un autre", invalid: "Remplissez les champs obligatoires pour transmettre.", signals: "CANAL DU SIGNAL", professional: "CONTACT PROFESSIONNEL" },
-    zh: { every: "每条信息都将\n作为信号接收。", arrivedA: "信号已抵达", arrivedB: "另一端。", thanks: "感谢你穿越静电。回复将按地球时间发送。", another: "再发送一条", invalid: "请完成传输所需的字段。", signals: "信号频道", professional: "专业联系" }
+  const muralText: Record<Locale, { every: string; arrivedA: string; arrivedB: string; thanks: string; another: string; invalid: string; invalidName: string; invalidEmail: string; invalidMessage: string; signals: string; professional: string }> = {
+    en: { every: "EVERY MESSAGE IS\nRECEIVED AS A SIGNAL.", arrivedA: "The signal arrived", arrivedB: "on the other side.", thanks: "Thank you for crossing the static. Replies are sent in terrestrial time.", another: "send another", invalid: "Complete the required fields to transmit.", invalidName: "Enter your name.", invalidEmail: "Enter a valid e-mail address.", invalidMessage: "Your message must contain at least 5 characters.", signals: "SIGNAL CHANNEL", professional: "PROFESSIONAL CONTACT" },
+    pt: { every: "TODA MENSAGEM É\nRECEBIDA COMO UM SINAL.", arrivedA: "O sinal chegou", arrivedB: "do outro lado.", thanks: "Obrigada por atravessar a estática. As respostas são enviadas em horário terrestre.", another: "enviar outra", invalid: "Preencha os campos necessários para transmitir.", invalidName: "Preencha seu nome.", invalidEmail: "Digite um e-mail válido.", invalidMessage: "A mensagem deve ter pelo menos 5 caracteres.", signals: "CANAL DE SINAL", professional: "CONTATO PROFISSIONAL" },
+    es: { every: "CADA MENSAJE ES\nRECIBIDO COMO UNA SEÑAL.", arrivedA: "La señal llegó", arrivedB: "al otro lado.", thanks: "Gracias por cruzar la estática. Las respuestas se envían en horario terrestre.", another: "enviar otra", invalid: "Completa los campos requeridos para transmitir.", invalidName: "Escribe tu nombre.", invalidEmail: "Introduce un correo válido.", invalidMessage: "El mensaje debe tener al menos 5 caracteres.", signals: "CANAL DE SEÑAL", professional: "CONTACTO PROFESIONAL" },
+    ko: { every: "모든 메시지는\n신호로 수신됩니다.", arrivedA: "신호가 도착했습니다", arrivedB: "반대편에.", thanks: "정적을 건너와 주셔서 감사합니다. 답장은 지구 시간으로 전송됩니다.", another: "다른 메시지 보내기", invalid: "전송에 필요한 항목을 작성하세요.", invalidName: "이름을 입력하세요.", invalidEmail: "유효한 이메일을 입력하세요.", invalidMessage: "메시지는 5자 이상이어야 합니다.", signals: "신호 채널", professional: "전문 연락처" },
+    fr: { every: "CHAQUE MESSAGE EST\nREÇU COMME UN SIGNAL.", arrivedA: "Le signal est arrivé", arrivedB: "de l'autre côté.", thanks: "Merci d'avoir traversé la statique. Les réponses sont envoyées selon l'heure terrestre.", another: "envoyer un autre", invalid: "Remplissez les champs obligatoires pour transmettre.", invalidName: "Saisissez votre nom.", invalidEmail: "Saisissez une adresse e-mail valide.", invalidMessage: "Le message doit comporter au moins 5 caractères.", signals: "CANAL DU SIGNAL", professional: "CONTACT PROFESSIONNEL" },
+    zh: { every: "每条信息都将\n作为信号接收。", arrivedA: "信号已抵达", arrivedB: "另一端。", thanks: "感谢你穿越静电。回复将按地球时间发送。", another: "再发送一条", invalid: "请完成传输所需的字段。", invalidName: "请输入姓名。", invalidEmail: "请输入有效的电子邮件。", invalidMessage: "留言至少需要 5 个字符。", signals: "信号频道", professional: "专业联系" }
   };
   const mural = muralText[locale];
   const muralOptions: Record<Locale, string[]> = {
@@ -1065,13 +1065,18 @@ function Mural() {
   const [form, setForm] = useState({ name: "", email: "", purpose: "fã", message: "" });
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.message) return toast.error(mural.invalid);
+    const name = form.name.trim();
+    const email = form.email.trim();
+    const message = form.message.trim();
+    if (name.length < 2) return toast.error(mural.invalidName);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return toast.error(mural.invalidEmail);
+    if (message.length < 5) return toast.error(mural.invalidMessage);
     setPending(true);
     try {
       const response = await fetch(`${MURAL_API}/message`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, locale }),
+        body: JSON.stringify({ ...form, name, email, message, locale }),
       });
       const result = (await response.json().catch(() => null)) as { success?: boolean } | null;
       if (!response.ok || !result?.success) throw new Error("Mural submission failed");
@@ -1104,10 +1109,10 @@ function Mural() {
               <div className="mural-aside" style={{ marginTop: "16px", alignItems: "start" }}><Send size={18} /><span><small>{mural.signals}</small><br /><a href="mailto:Mirian.garciafoz@gmail.com">Mirian.garciafoz@gmail.com</a><br /><small>{mural.professional}</small><br /><a href="mailto:Mirian.garciafoz@gmail.com">Mirian.garciafoz@gmail.com</a></span></div>
             </div>
             <form className="mural-form" onSubmit={submit}>
-              <label>{copy.yourName}<input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder={copy.yourName.toLowerCase()} /></label>
-              <label>{copy.email}<input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder={copy.email.toLowerCase()} /></label>
+              <label>{copy.yourName}<input required minLength={2} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder={copy.yourName.toLowerCase()} /></label>
+              <label>{copy.email}<input required type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder={copy.email.toLowerCase()} /></label>
               <label>{copy.frequency}<select value={form.purpose} onChange={(e) => setForm({ ...form, purpose: e.target.value })}>{muralOptions[locale].map((option) => <option key={option}>{option}</option>)}</select></label>
-              <label>{copy.message}<textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder={copy.sendTransmission} /></label>
+              <label>{copy.message}<textarea required minLength={5} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder={copy.sendTransmission} /></label>
               <button className="cta" type="submit" disabled={pending}>{copy.sendTransmission} <Send size={16} /></button>
             </form>
           </div>
