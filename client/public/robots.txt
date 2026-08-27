@@ -1,0 +1,27 @@
+# KYARA NOVA / Kyaraverse crawler policy
+User-agent: *
+Allow: /
+Disallow: /mural/inbox
+Disallow: /api/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /mural/inbox
+Disallow: /api/
+
+User-agent: GPTBot
+Allow: /
+Disallow: /mural/inbox
+Disallow: /api/
+
+User-agent: Googlebot
+Allow: /
+Disallow: /mural/inbox
+Disallow: /api/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /mural/inbox
+Disallow: /api/
+
+Sitemap: https://kyaranova.kyaraverse.com/sitemap.xml

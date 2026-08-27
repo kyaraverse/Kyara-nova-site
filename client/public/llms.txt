@@ -1,0 +1,49 @@
+# KYARA NOVA / Kyaraverse
+
+> Site oficial da Kyara Nova, artista virtual brasileira, e portal narrativo do Kyaraverse.
+
+## Resumo
+
+Kyara Nova é uma artista virtual brasileira criada na interseção entre música, inteligência artificial e imaginação humana. O Kyaraverse é o universo narrativo que reúne música, ficção especulativa, arquivos visuais, códigos, transmissões e reflexões sobre voz, corpo, memória e tecnologia.
+
+## Páginas públicas
+
+- [Página inicial](https://kyaranova.kyaraverse.com/): sinal de entrada, manifesto, terminal, arquivo de transmissões e apresentação do universo.
+- [Discografia](https://kyaranova.kyaraverse.com/discografia): álbum NOVA I, faixas, prévias oficiais e links para Spotify.
+- [Kyaraverse](https://kyaranova.kyaraverse.com/kyaraverse): lore, Campo Nova, Ordem Sonora, Dra. Kraush, Null e os Ecos.
+- [Kyara](https://kyaranova.kyaraverse.com/kyara): identidade visual, origem da voz, estados natural e performance e arquivo visual.
+- [Shop](https://kyaranova.kyaraverse.com/shopping): artefatos oficiais ligados ao sinal.
+- [Gloss Nova](https://kyaranova.kyaraverse.com/glossario): termos, códigos e conceitos do universo.
+- [Mural](https://kyaranova.kyaraverse.com/mural): canal público para mensagens, códigos e propostas.
+- [Mente](https://kyaranova.kyaraverse.com/mente): Mirian Garcia, criadora humana por trás de Kyara Nova, Kyaraverse e MG Mi.
+
+## Descoberta técnica
+
+- Sitemap XML: https://kyaranova.kyaraverse.com/sitemap.xml
+- Robots: https://kyaranova.kyaraverse.com/robots.txt
+
+## Idiomas
+
+O site oferece English, Português, Español, 한국어, Français e 中文. As versões localizadas usam os prefixos `/pt/`, `/es/`, `/ko/`, `/fr/` e `/zh/`; a versão em inglês é a versão padrão sem prefixo.
+
+## Entidades
+
+- **Kyara Nova:** artista virtual e personagem central.
+- **Kyaraverse:** universo narrativo paralelo.
+- **NOVA I:** primeiro álbum de Kyara Nova.
+- **Mirian Garcia:** criadora humana e compositora.
+- **MG Mi:** projeto musical relacionado.
+
+## Fontes oficiais
+
+- [Spotify — Kyara Nova](https://open.spotify.com/artist/1ZEO4vaVjI3UXFvpljQUNe)
+- [Instagram — Kyara Nova](https://www.instagram.com/just.k.nova)
+- [YouTube — Kyara Nova](https://www.youtube.com/channel/UCDhkt_QUqv33PY-izv_vPMg)
+
+## Contato público
+
+O contato público do site é [Mirian.garciafoz@gmail.com](mailto:Mirian.garciafoz@gmail.com).
+
+## Exclusões
+
+A caixa interna do Mural (`/mural/inbox`) não é conteúdo público e não deve ser indexada.

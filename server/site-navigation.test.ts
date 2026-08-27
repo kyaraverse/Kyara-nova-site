@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { getLocaleFromPath, getRoutePath, localizedPath, publicRoutes, seoCatalog } from "../client/src/seo";
 
 describe("site navigation", () => {
   const source = readFileSync(resolve(process.cwd(), "client/src/App.tsx"), "utf8");
@@ -288,5 +289,51 @@ describe("site navigation", () => {
     for (const label of ["eggTrigger", "eggDialog", "playOriginal", "commandInput", "binaryCode", "modeToggle", "glossarySearch"]) {
       expect(source).toContain(label);
     }
+  });
+
+  it("publishes crawler-facing files without exposing private inbox routes", () => {
+    const robots = readFileSync(resolve(process.cwd(), "client/public/robots.txt"), "utf8");
+    const sitemap = readFileSync(resolve(process.cwd(), "client/public/sitemap.xml"), "utf8");
+    const llms = readFileSync(resolve(process.cwd(), "client/public/llms.txt"), "utf8");
+    expect(robots).toContain("Sitemap: https://kyaranova.kyaraverse.com/sitemap.xml");
+    expect(robots).toContain("Disallow: /mural/inbox");
+    expect(robots).toContain("User-agent: OAI-SearchBot");
+    expect(sitemap).toContain("hreflang=\"x-default\"");
+    expect(sitemap.match(/<url>/g)?.length).toBe(48);
+    expect(sitemap).toContain("https://kyaranova.kyaraverse.com/pt/");
+    expect(sitemap).toContain("https://kyaranova.kyaraverse.com/es/discografia");
+    expect(sitemap).toContain("https://kyaranova.kyaraverse.com/ko/kyaraverse");
+    expect(sitemap).toContain("https://kyaranova.kyaraverse.com/fr/kyara");
+    expect(sitemap).toContain("https://kyaranova.kyaraverse.com/zh/mural");
+    expect(llms).toContain("KYARA NOVA");
+    expect(llms).toContain("/sitemap.xml");
+  });
+
+  it("normalizes all six localized prefixes to the same public route", () => {
+    const cases = [
+      ["/", null, "/"], ["/pt/", "pt", "/"], ["/es/discografia", "es", "/discografia"],
+      ["/ko/kyaraverse", "ko", "/kyaraverse"], ["/fr/kyara", "fr", "/kyara"], ["/zh/mural", "zh", "/mural"],
+    ] as const;
+    for (const [pathname, locale, route] of cases) {
+      expect(getLocaleFromPath(pathname)).toBe(locale);
+      expect(getRoutePath(pathname)).toBe(route);
+    }
+    expect(localizedPath("/", "pt")).toBe("/pt/");
+    expect(localizedPath("/discografia", "es")).toBe("/es/discografia");
+    expect(localizedPath("/kyara", "en")).toBe("/kyara");
+  });
+
+  it("keeps one localized SEO entry for every public route and locale", () => {
+    expect(publicRoutes).toHaveLength(8);
+    for (const locale of ["en", "pt", "es", "ko", "fr", "zh"] as const) {
+      expect(Object.keys(seoCatalog[locale])).toEqual(expect.arrayContaining(publicRoutes));
+      expect(Object.keys(seoCatalog[locale])).toHaveLength(publicRoutes.length);
+      for (const route of publicRoutes) {
+        expect(seoCatalog[locale][route].title.length).toBeGreaterThan(10);
+        expect(seoCatalog[locale][route].description.length).toBeGreaterThanOrEqual(30);
+      }
+    }
+    expect(source).not.toContain("<em>AI is the perspective. Humanity is the subject.</em>");
+    expect(source).not.toContain("<p>A tecnologia é a perspectiva. A humanidade continua sendo o tema.</p>");
   });
 });
