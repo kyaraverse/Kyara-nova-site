@@ -254,7 +254,7 @@ function Shell({ children }: { children: React.ReactNode }) {
     setIsTransitioning(true);
     const timer = window.setTimeout(() => setIsTransitioning(false), 120);
     return () => window.clearTimeout(timer);
-  }, [location]);
+  }, [rawLocation]);
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
