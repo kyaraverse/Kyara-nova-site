@@ -572,7 +572,7 @@ function ArchiveVideoCard({ video }: { video: { src: string; poster: string; tit
     if (videoRef.current) videoRef.current.muted = next;
   };
   const primeVideo = () => videoRef.current?.load();
-  return <div className="archive-card"><div className="video-wrap"><video ref={videoRef} src={video.src} muted={muted} loop playsInline preload="metadata" poster={video.poster} onPointerEnter={primeVideo} onFocus={primeVideo} onTouchStart={primeVideo} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} aria-label={video.title} /><div className="video-controls"><button className="play-button" onClick={togglePlay} aria-label={`${playing ? labels.pausePreview : labels.playPreview}: ${video.title}`}><>{playing ? <Pause size={18} /> : <Play size={18} fill="currentColor" />}</></button><button className="play-button" onClick={toggleMute} aria-label={muted ? labels.unmuteAudio : labels.muteAudio} title={muted ? labels.unmuteAudio : labels.muteAudio}>{muted ? <VolumeX size={17} /> : <Volume2 size={17} />}</button></div></div><div className="archive-card-meta"><span>{video.meta}</span><h3>{video.title}</h3><ArrowUpRightIcon /></div></div>;
+  return <div className="archive-card"><div className="video-wrap"><video ref={videoRef} src={video.src} muted={muted} loop playsInline preload="none" poster={video.poster} onPointerEnter={primeVideo} onFocus={primeVideo} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} aria-label={video.title} /><div className="video-controls"><button className="play-button" onClick={togglePlay} aria-label={`${playing ? labels.pausePreview : labels.playPreview}: ${video.title}`}><>{playing ? <Pause size={18} /> : <Play size={18} fill="currentColor" />}</></button><button className="play-button" onClick={toggleMute} aria-label={muted ? labels.unmuteAudio : labels.muteAudio} title={muted ? labels.unmuteAudio : labels.muteAudio}>{muted ? <VolumeX size={17} /> : <Volume2 size={17} />}</button></div></div><div className="archive-card-meta"><span>{video.meta}</span><h3>{video.title}</h3><ArrowUpRightIcon /></div></div>;
 }
 
 function ArchiveSection() {
@@ -616,11 +616,11 @@ function PageHero({ eyebrow, title, subtitle, accent = "cyan", image, kind: kind
   return <section className={`page-hero ${accent} ${image ? "has-image" : ""}`} data-media-src={image} data-media-type="image" data-media-alt={eyebrow} style={image ? { backgroundImage: `linear-gradient(90deg, rgba(10,12,10,.96) 0%, rgba(10,12,10,.7) 48%, rgba(10,12,10,.24) 100%), url(${image})`, backgroundSize: "cover", backgroundPosition: "center center", backgroundRepeat: "no-repeat" } : undefined}><div className="page-hero-copy"><Eyebrow>{displayedEyebrow}</Eyebrow><h1>{title}</h1><p>{subtitle}</p></div><div className="page-hero-symbol"><HeroArtifact kind={kind} /></div></section>;
 }
 
-function DiscographyInterlude({ label, title, videoSrc, duration, loadLabel }: { label: string; title: string; videoSrc: string; duration: string; loadLabel: string }) {
+function DiscographyInterlude({ label, title, videoSrc, duration, loadLabel, poster }: { label: string; title: string; videoSrc: string; duration: string; loadLabel: string; poster: string }) {
   const locale = useContext(LocaleContext);
   const visual = visualLabels[locale];
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [loaded, setLoaded] = useState(false);
+  const [started, setStarted] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
   useEffect(() => () => {
@@ -634,6 +634,7 @@ function DiscographyInterlude({ label, title, videoSrc, duration, loadLabel }: {
       setPlaying(false);
       return;
     }
+    setStarted(true);
     try {
       video.muted = muted;
       await video.play();
@@ -649,13 +650,14 @@ function DiscographyInterlude({ label, title, videoSrc, duration, loadLabel }: {
   };
   return <figure className="discography-interlude">
     <div className="discography-interlude-copy"><Eyebrow>{label}</Eyebrow><h2>{title}</h2><span className="interlude-duration">{duration} // {visual.fullAudioTransmission}</span></div>
-    {!loaded ? <button type="button" className="interlude-load" onClick={() => setLoaded(true)}><Play size={20} /><span>{loadLabel}</span><small>{duration}</small></button> : <div className="interlude-player">
-      <video ref={videoRef} src={videoSrc} muted={muted} playsInline preload="metadata" aria-label={label} onEnded={() => setPlaying(false)} />
+    <div className="interlude-player">
+      <video ref={videoRef} src={videoSrc} muted={muted} playsInline preload="none" poster={poster} aria-label={label} onEnded={() => setPlaying(false)} />
+      {!started && !playing && <button type="button" className="interlude-load" onClick={() => void togglePlayback()} title={loadLabel}><Play size={20} /><span>{loadLabel}</span><small>{duration}</small></button>}
       <div className="interlude-controls">
         <button type="button" className="interlude-play" onClick={() => void togglePlayback()} aria-pressed={playing}>{playing ? <Pause size={18} /> : <Play size={18} />} {playing ? visual.pause : visual.play} <small>{duration}</small></button>
         <button type="button" className="interlude-mute" onClick={toggleMute} aria-pressed={muted} aria-label={muted ? visual.enableInterludeSound : visual.muteInterludeSound}>{muted ? <VolumeX size={17} /> : <Volume2 size={17} />}</button>
       </div>
-    </div>}
+    </div>
   </figure>;
 }
 
@@ -980,9 +982,9 @@ function Discografia() {
       </section>
       <section className="discography-catalog section-shell" aria-label="NOVA I track list">
         <div className="discography-tracklist">{tracks.slice(0, 6).map((track, index) => renderSpotifyExtension(track, index))}</div>
-        <DiscographyInterlude label={interludeText[locale][0].label} title={interludeText[locale][0].title} videoSrc={A.discographyInterludeOne} duration="02:03" loadLabel={interludeLoad[locale]} />
+        <DiscographyInterlude label={interludeText[locale][0].label} title={interludeText[locale][0].title} videoSrc={A.discographyInterludeOne} poster={A.signal} duration="02:03" loadLabel={interludeLoad[locale]} />
         <div className="discography-tracklist">{tracks.slice(6, 12).map((track, relativeIndex) => renderSpotifyExtension(track, relativeIndex + 6))}</div>
-        <DiscographyInterlude label={interludeText[locale][1].label} title={interludeText[locale][1].title} videoSrc={A.discographyInterludeTwo} duration="02:36" loadLabel={interludeLoad[locale]} />
+        <DiscographyInterlude label={interludeText[locale][1].label} title={interludeText[locale][1].title} videoSrc={A.discographyInterludeTwo} poster={A.crystal} duration="02:36" loadLabel={interludeLoad[locale]} />
         <small className="mono-caption discography-total">12 TRACKS // 45:13 // OFFICIAL SPOTIFY RELEASE</small>
       </section>
     </div>
